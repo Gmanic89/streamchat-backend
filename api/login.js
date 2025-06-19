@@ -5,8 +5,16 @@ const serverClient = StreamChat.getInstance(
     process.env.STREAM_API_SECRET
 );
 
-// Base de datos completamente vacía - solo usuarios registrados dinámicamente
+// Base de datos con admin predefinido
 const users = new Map();
+
+// Usuario admin predefinido
+users.set('admin', { 
+    username: 'admin', 
+    password: 'admin123', 
+    createdAt: new Date(),
+    role: 'admin'
+});
 
 module.exports = async (req, res) => {
     // Habilitar CORS
@@ -38,7 +46,7 @@ module.exports = async (req, res) => {
         if (!user) {
             return res.status(401).json({ 
                 success: false,
-                error: 'Usuario no encontrado. Regístrate primero.' 
+                error: 'Usuario no encontrado' 
             });
         }
 

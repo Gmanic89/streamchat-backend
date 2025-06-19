@@ -5,15 +5,37 @@ const serverClient = StreamChat.getInstance(
     process.env.STREAM_API_SECRET
 );
 
-// Base de datos con admin predefinido
+// Base de datos sincronizada con register.js
 const users = new Map();
 
-// Usuario admin predefinido
+// IMPORTANTE: Estos usuarios deben coincidir EXACTAMENTE con register.js
+// Incluir todos los usuarios que ya fueron registrados
 users.set('admin', { 
     username: 'admin', 
     password: 'admin123', 
     createdAt: new Date(),
     role: 'admin'
+});
+
+users.set('abi', { 
+    username: 'abi', 
+    password: 'AQUI_LA_CONTRASEÑA_QUE_USASTE_PARA_ABI', 
+    createdAt: new Date(),
+    role: 'user'
+});
+
+users.set('mate', { 
+    username: 'mate', 
+    password: 'AQUI_LA_CONTRASEÑA_QUE_USASTE_PARA_MATE', 
+    createdAt: new Date(),
+    role: 'user'
+});
+
+users.set('mate2', { 
+    username: 'mate2', 
+    password: 'AQUI_LA_CONTRASEÑA_QUE_USASTE_PARA_MATE2', 
+    createdAt: new Date(),
+    role: 'user'
 });
 
 module.exports = async (req, res) => {
@@ -46,7 +68,7 @@ module.exports = async (req, res) => {
         if (!user) {
             return res.status(401).json({ 
                 success: false,
-                error: 'Usuario no encontrado' 
+                error: 'Usuario no encontrado. Regístrate primero.' 
             });
         }
 

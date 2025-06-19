@@ -5,24 +5,8 @@ const serverClient = StreamChat.getInstance(
     process.env.STREAM_API_SECRET
 );
 
-// Base de datos temporal en memoria (para desarrollo)
-// En producción usar MongoDB, PostgreSQL, etc.
+// Base de datos completamente vacía - solo usuarios registrados dinámicamente
 const users = new Map();
-
-// Usuarios predefinidos para testing
-users.set('admin', { 
-    username: 'admin', 
-    password: 'admin123', 
-    createdAt: new Date(),
-    role: 'admin'
-});
-
-users.set('abi', { 
-    username: 'abi', 
-    password: 'abi123', 
-    createdAt: new Date(),
-    role: 'user'
-});
 
 module.exports = async (req, res) => {
     // Habilitar CORS
@@ -54,7 +38,7 @@ module.exports = async (req, res) => {
         if (!user) {
             return res.status(401).json({ 
                 success: false,
-                error: 'Usuario no encontrado' 
+                error: 'Usuario no encontrado. Regístrate primero.' 
             });
         }
 
